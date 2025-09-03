@@ -3,7 +3,7 @@
 @section('title', __('List of Books'))
 
 @section('content')
-    <div class="col-md-12">
+    <div class="col-md-12" x-data="listPage()">
         <div class="row mb-3">
             <div class="col-md-6">
                 <a class="btn btn-outline-dark" href="{{ route('books.create') }}">
@@ -27,22 +27,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($books as $book)
+                        <template x-for="book in books" :key="book.id">
                             <tr>
-                                <td>{{ $book->id }}</td>
-                                <td>{{ $book->title }}</td>
-                                <td>{{ $book->isbn }}</td>
-                                <td>{{ $book->author->name ?? '' }}</td>
-                                <td>{{ $book->publisher }}</td>
+                                <td x-text="book.id"></td>
+                                <td x-text="book.title"></td>
+                                <td x-text="book.isbn"></td>
+                                <td x-text="book.author?.name ?? ''"></td>
+                                <td x-text="book.publisher"></td>
                                 <td class="text-center">
-                                    <a class="btn btn-sm btn-secondary" href="{{ route('books.show', $book) }}">
+                                    <a class="btn btn-sm btn-secondary" :href="`/books/${book.id}`">
                                         <span class="bi bi-eye"></span>
                                     </a>
-                                    <a class="btn btn-sm btn-primary" href="{{ route('books.edit', $book) }}">
+                                    <a class="btn btn-sm btn-primary" :href="`/books/${book.id}/edit`">
                                         <span class="bi bi-pencil-square"></span>
                                     </a>
-                                    <form action="{{ route('books.destroy', $book) }}" method="POST"
-                                        style="display: inline-block;">
+                                    <form :action="`/books/${book.id}`" method="POST" style="display:inline-block;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-danger"
@@ -52,9 +51,20 @@
                                     </form>
                                 </td>
                             </tr>
-                        @endforeach
+                        </template>
                     </tbody>
                 </table>
+            </div>
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script>
+        function listPage() {
+            return {
+                books: @json($books),
+            }
+        }
+    </script>
+@endpush
