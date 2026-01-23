@@ -17,7 +17,7 @@ class AuthorController
 
         $columns = ['id', 'name', 'bio', 'birth_date'];
 
-        $authors = $query->select($columns)->get();
+        $authors = $query->select($columns)->paginate(1)->withQueryString();
 
         return $request->wantsJson()
             ? $authors
