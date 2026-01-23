@@ -51,6 +51,8 @@
                 </table>
             </div>
         </div>
+
+        <div>{{ $authors->links('pagination::bootstrap-5-limited') }}</div>
     </div>
 @endsection
 
@@ -58,7 +60,7 @@
     <script>
         function authorList() {
             return {
-                authors: @json($authors),
+                authors: @json($authors->items()),
             }
         }
     </script>
