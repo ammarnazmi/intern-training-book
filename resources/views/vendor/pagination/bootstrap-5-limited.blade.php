@@ -9,7 +9,8 @@
                     </li>
                 @else
                     <li class="page-item">
-                        <a class="page-link" href="{{ $paginator->previousPageUrl() }}" rel="prev">@lang('pagination.previous')</a>
+                        <a class="page-link" href="{{ $paginator->previousPageUrl() }}"
+                            rel="prev">@lang('pagination.previous')</a>
                     </li>
                 @endif
 
@@ -48,7 +49,8 @@
                         </li>
                     @else
                         <li class="page-item">
-                            <a class="page-link" href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="@lang('pagination.previous')">&lsaquo;</a>
+                            <a class="page-link" href="{{ $paginator->previousPageUrl() }}" rel="prev"
+                                aria-label="@lang('pagination.previous')">&lsaquo;</a>
                         </li>
                     @endif
 
@@ -56,42 +58,45 @@
                     @foreach ($elements as $element)
                         {{-- "Three Dots" Separator --}}
                         @if (is_string($element))
-                            <li class="page-item disabled" aria-disabled="true"><span class="page-link">{{ $element }}</span></li>
+                            <li class="page-item disabled" aria-disabled="true"><span
+                                    class="page-link">{{ $element }}</span></li>
                         @endif
 
                         {{-- Array Of Links --}}
-@if (is_array($element))
-    @php
-        // Number of page links to show at a time
-        $maxLinks = 3;
+                        @if (is_array($element))
+                            @php
+                                // Number of page links to show at a time
+                                $maxLinks = 3;
 
-        // Calculate start and end page numbers
-        $start = max($paginator->currentPage() - 1, 1);
-        $end = min($start + $maxLinks - 1, $paginator->lastPage());
+                                // Calculate start and end page numbers
+                                $start = max($paginator->currentPage() - 1, 1);
+                                $end = min($start + $maxLinks - 1, $paginator->lastPage());
 
-        // Adjust start if we're near the end
-        if ($end - $start + 1 < $maxLinks) {
-            $start = max($end - $maxLinks + 1, 1);
-        }
-    @endphp
+                                // Adjust start if we're near the end
+                                if ($end - $start + 1 < $maxLinks) {
+                                    $start = max($end - $maxLinks + 1, 1);
+                                }
+                            @endphp
 
-    @foreach ($element as $page => $url)
-        @if ($page >= $start && $page <= $end)
-            @if ($page == $paginator->currentPage())
-                <li class="page-item active" aria-current="page"><span class="page-link">{{ $page }}</span></li>
-            @else
-                <li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
-            @endif
-        @endif
-    @endforeach
-@endif
-
+                            @foreach ($element as $page => $url)
+                                @if ($page >= $start && $page <= $end)
+                                    @if ($page == $paginator->currentPage())
+                                        <li class="page-item active" aria-current="page"><span
+                                                class="page-link">{{ $page }}</span></li>
+                                    @else
+                                        <li class="page-item"><a class="page-link"
+                                                href="{{ $url }}">{{ $page }}</a></li>
+                                    @endif
+                                @endif
+                            @endforeach
+                        @endif
                     @endforeach
 
                     {{-- Next Page Link --}}
                     @if ($paginator->hasMorePages())
                         <li class="page-item">
-                            <a class="page-link" href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="@lang('pagination.next')">&rsaquo;</a>
+                            <a class="page-link" href="{{ $paginator->nextPageUrl() }}" rel="next"
+                                aria-label="@lang('pagination.next')">&rsaquo;</a>
                         </li>
                     @else
                         <li class="page-item disabled" aria-disabled="true" aria-label="@lang('pagination.next')">
