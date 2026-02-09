@@ -15,7 +15,7 @@
                 @method('PUT')
             @endif
 
-            <div class="mb-3">
+            {{-- <div class="mb-3">
                 <label for="name" class="form-label">{{ __('Name') }}</label>
                 <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name"
                     value="{{ old('name', $author->name ?? '') }}">
@@ -24,7 +24,7 @@
                         {{ $message }}
                     </div>
                 @enderror
-            </div>
+            </div> --}}
 
             <div class="mb-3">
                 <label for="bio" class="form-label">{{ __('Biography') }}</label>
